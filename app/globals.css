@@ -1,26 +1,249 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* Tailwind v4: theme, variants and utilities live in CSS (no tailwind.config) */
+@custom-variant coarse (@media (pointer: coarse));
+@custom-variant fine (@media (hover: hover));
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@theme {
+  --animate-flicker: flicker 0.12s steps(2, end) infinite;
+  --animate-blink: blink 1s steps(1) infinite;
+  @keyframes flicker {
+    0% {
+      opacity: 0.97;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0.985;
+    }
+  }
+  @keyframes blink {
+    50% {
+      visibility: hidden;
+    }
   }
 }
 
+:root {
+  --tb: 28px;
+}
+@media (pointer: coarse) {
+  :root {
+    --tb: 38px;
+  }
+}
+
+html,
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  height: 100%;
+  margin: 0;
+  background: #000080;
+}
+body {
+  color: #000;
+  color-scheme: light;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: default;
+  font-family: "Mona12", sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+@media (pointer: coarse) {
+  body {
+    font-size: 13px;
+  }
+}
+input {
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+@utility bevel-out {
+  box-shadow:
+    inset -1px -1px #0a0a0a,
+    inset 1px 1px #dfdfdf,
+    inset -2px -2px #808080,
+    inset 2px 2px #fff;
+}
+@utility bevel-btn {
+  box-shadow:
+    inset -1px -1px #0a0a0a,
+    inset 1px 1px #fff,
+    inset -2px -2px #808080,
+    inset 2px 2px #dfdfdf;
+}
+@utility bevel-down {
+  box-shadow:
+    inset -1px -1px #fff,
+    inset 1px 1px #0a0a0a,
+    inset -2px -2px #dfdfdf,
+    inset 2px 2px #808080;
+}
+@utility sunken {
+  box-shadow:
+    inset 1px 1px #808080,
+    inset -1px -1px #fff,
+    inset 2px 2px #0a0a0a,
+    inset -2px -2px #dfdfdf;
+}
+@utility sunken-thin {
+  box-shadow:
+    inset 1px 1px #808080,
+    inset -1px -1px #fff;
+}
+@utility flat-raise {
+  box-shadow:
+    inset -1px -1px #808080,
+    inset 1px 1px #fff;
+}
+@utility btn95 {
+  background: #c0c0c0;
+  color: #000;
+  box-shadow:
+    inset -1px -1px #0a0a0a,
+    inset 1px 1px #fff,
+    inset -2px -2px #808080,
+    inset 2px 2px #dfdfdf;
+  &:active,
+  &.pressed {
+    box-shadow:
+      inset -1px -1px #fff,
+      inset 1px 1px #0a0a0a,
+      inset -2px -2px #dfdfdf,
+      inset 2px 2px #808080;
+  }
+}
+@utility dither {
+  background: repeating-conic-gradient(#fff 0 25%, #c0c0c0 0 50%) 0 0 / 2px 2px;
+}
+@utility px {
+  image-rendering: pixelated;
+  shape-rendering: crispEdges;
+}
+@utility sky-panel {
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-size: 100% 190px;
+  background-image:
+    radial-gradient(
+      ellipse 62px 6px at 26% 13px,
+      rgba(255, 255, 255, 0.7),
+      transparent 72%
+    ),
+    radial-gradient(
+      ellipse 52px 5px at 82% 28px,
+      rgba(255, 255, 255, 0.75),
+      transparent 72%
+    ),
+    radial-gradient(
+      ellipse 78px 8px at 18% 50px,
+      rgba(255, 255, 255, 0.6),
+      transparent 72%
+    ),
+    radial-gradient(
+      ellipse 66px 7px at 64% 72px,
+      rgba(255, 255, 255, 0.65),
+      transparent 72%
+    ),
+    radial-gradient(
+      ellipse 58px 6px at 10% 98px,
+      rgba(255, 255, 255, 0.45),
+      transparent 72%
+    ),
+    radial-gradient(
+      ellipse 46px 5px at 38% 124px,
+      rgba(255, 255, 255, 0.35),
+      transparent 72%
+    ),
+    linear-gradient(
+      135deg,
+      #4a93db 0%,
+      #7db8ea 18%,
+      #a9d1f2 32%,
+      #c9e2f7 44%,
+      #e9f4fc 58%,
+      #fff 72%
+    );
+}
+@utility rainbow-rule {
+  background: linear-gradient(
+      90deg,
+      #e5533c 0 25%,
+      #f3c04d 25% 52%,
+      #7ec45a 52% 77%,
+      #5b9df0 77% 100%
+    )
+    left bottom / 100% 2px no-repeat;
+}
+@utility crt-layer {
+  background:
+    radial-gradient(
+      ellipse at center,
+      transparent 60%,
+      rgba(0, 0, 0, 0.18) 85%,
+      rgba(0, 0, 0, 0.38) 100%
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.13) 0 1px,
+      rgba(0, 0, 0, 0) 1px 3px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 0, 0, 0.03) 0 1px,
+      rgba(0, 255, 0, 0.025) 1px 2px,
+      rgba(0, 0, 255, 0.03) 2px 3px
+    );
+  box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.3);
+}
+@utility scan-layer {
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.4) 0 1px,
+    transparent 1px 3px
+  );
+}
+@utility kbubble {
+  box-shadow:
+    0 -2px #000,
+    0 2px #000,
+    -2px 0 #000,
+    2px 0 #000;
+}
+
+/* scrollbars, Win95 style */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: #c0c0c0 #e8e8e8;
+}
+::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+  background: repeating-conic-gradient(#fff 0 25%, #c0c0c0 0 50%) 0 0 / 2px 2px;
+}
+::-webkit-scrollbar-thumb {
+  background: #c0c0c0;
+  box-shadow:
+    inset -1px -1px #0a0a0a,
+    inset 1px 1px #fff,
+    inset -2px -2px #808080,
+    inset 2px 2px #dfdfdf;
+}
+::-webkit-scrollbar-button {
+  background: #c0c0c0;
+  height: 16px;
+  width: 16px;
+  box-shadow:
+    inset -1px -1px #0a0a0a,
+    inset 1px 1px #fff,
+    inset -2px -2px #808080,
+    inset 2px 2px #dfdfdf;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-flicker {
+    animation: none !important;
+  }
 }
